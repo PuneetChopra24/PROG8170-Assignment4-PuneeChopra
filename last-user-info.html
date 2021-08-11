@@ -1,0 +1,113 @@
+<html>
+  <head>
+    <title>User Details</title>
+    <link rel="stylesheet" href="./header.css" />
+    <style>
+      .user-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 25px;
+      }
+
+      .user-container h3 {
+        text-align: center;
+      }
+
+      .user-container .details {
+        margin: 45px 0;
+        width: 100%;
+      }
+
+      .user-container .details .label {
+        color: red;
+        margin: 10px 0;
+      }
+
+      .user-container button {
+        padding: 10px 20px;
+        width: 25%;
+        border: 1px solid red;
+        background-color: red;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <nav class="dropdownmenu">
+        <ul>
+          <li><a href="./search-users.html">Search Users</a></li>
+          <li>
+            <a href="./home.html">New User</a>
+          </li>
+          <div style="clear: right"></div>
+        </ul>
+      </nav>
+    </div>
+    <div class="user-container">
+      <div class="details">
+        <div class="item">
+          <div class="label">Contact</div>
+          <div id="contact"></div>
+        </div>
+        <div class="item">
+          <div class="label">Address</div>
+          <div id="addr"></div>
+        </div>
+        <div class="item">
+          <div class="label">City</div>
+          <div id="city"></div>
+        </div>
+        <div class="item">
+          <div class="label">Province</div>
+          <div id="province"></div>
+        </div>
+        <div class="item">
+          <div class="label">Postal Code</div>
+          <div id="pcode"></div>
+        </div>
+        <div class="item">
+          <div class="label">Phone Number</div>
+          <div id="pnumber"></div>
+        </div>
+        <div class="item">
+          <div class="label">Email Address</div>
+          <div id="email"></div>
+        </div>
+        <div class="item">
+          <div class="label">Notes</div>
+          <div id="notes"></div>
+        </div>
+      </div>
+      <button id="delete">Delete Record</button>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      let userData = JSON.parse(localStorage.getItem("userData")) || [];
+      let userInfo = userData[userData.length - 1];
+      if (userInfo) {
+        $("#contact").text(userInfo.fname + " " + userInfo.lname);
+        $("#addr").text(userInfo.addr);
+        $("#city").text(userInfo.city);
+        $("#province").text(userInfo.province);
+        $("#pcode").text(userInfo.pcode);
+        $("#pnumber").text(userInfo.pnumber);
+        $("#email").text(userInfo.email);
+        $("#notes").text(userInfo.notes);
+      } else {
+        alert("No records found!");
+      }
+
+      $("#delete").on("click", function () {
+        userData.pop();
+        localStorage.setItem("userData", JSON.stringify(userData));
+        alert("Deleted record");
+        window.location.href = "./home.html";
+      });
+    </script>
+  </body>
+</html>

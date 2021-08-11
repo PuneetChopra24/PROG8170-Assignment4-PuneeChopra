@@ -1,0 +1,73 @@
+<html>
+  <head>
+    <title>Search Users</title>
+    <link rel="stylesheet" href="./header.css" />
+    <style>
+      .details {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        padding: 30px;
+      }
+
+      .details .tile {
+        width: 25%;
+        padding: 20px;
+        border: 1px solid darkgrey;
+      }
+
+      .details .tile .info {
+        color: red;
+        font-size: 13px;
+        margin: 5px 0;
+      }
+
+      .details .tile .detail {
+        font-size: 13px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <nav class="dropdownmenu">
+        <ul>
+          <li><a href="./search-users.html">Search Users</a></li>
+          <li>
+            <a href="./home.html">New User</a>
+          </li>
+          <div style="clear: right"></div>
+        </ul>
+      </nav>
+    </div>
+    <div class="details"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      let userData = JSON.parse(localStorage.getItem("userData")) || [];
+      if (userData.length > 0) {
+        userData.forEach((userInfo) => {
+          $(".details").append(
+            "<div class='tile'><div class='info'>Contact Name</div><div class='detail'>" +
+              userInfo.fname +
+              " " +
+              userInfo.lname +
+              "</div><div class='info'>Address</div><div class='detail'>" +
+              userInfo.addr +
+              "</div><div class='info'>City</div><div class='detail'>" +
+              userInfo.city +
+              "</div><div class='info'>Province</div><div class='detail'>" +
+              userInfo.province +
+              "</div><div class='info'>Postal Code</div><div class='detail'>" +
+              userInfo.pcode +
+              "</div><div class='info'>Phone Number</div><div class='detail'>" +
+              userInfo.pnumber +
+              "</div><div class='info'>Email Address</div><div class='detail'>" +
+              userInfo.email +
+              "</div><div class='info'>Notes</div><div class='detail'>" +
+              userInfo.notes +
+              "</div></div>"
+          );
+        });
+      }
+    </script>
+  </body>
+</html>

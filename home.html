@@ -1,0 +1,280 @@
+<html>
+  <head>
+    <title>Registration</title>
+    <link rel="stylesheet" href="./header.css" />
+    <style>
+      .registration-form {
+        width: 100%;
+        max-width: 850px;
+        margin: 40px auto;
+        padding: 25px;
+      }
+
+      .registration-form h3 {
+        text-align: center;
+        color: red;
+      }
+
+      .registration-form .form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .registration-form .form .form-element {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .registration-form .form .form-element label {
+        color: red;
+      }
+
+      .registration-form .form .form-element .form-option {
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid darkgray;
+        border-radius: 10px;
+      }
+
+      .registration-form .form .form-element textarea {
+        resize: none;
+        margin: 10px 0;
+        padding: 10px;
+      }
+
+      .registration-form .form .form-element select.form-option,
+      .registration-form .form .form-element select.form-option option {
+        color: #000;
+      }
+
+      .registration-form .form input[type="submit"] {
+        padding: 15px 40px;
+        margin-top: 20px;
+        cursor: pointer;
+        background-color: red;
+        border: 0;
+        color: #fff;
+      }
+
+      ::-webkit-input-placeholder {
+        font-family: var(--font-open-sans);
+      }
+      :-moz-placeholder {
+        font-family: var(--font-open-sans);
+      }
+      ::-moz-placeholder {
+        font-family: var(--font-open-sans);
+      }
+      :-ms-input-placeholder {
+        font-family: var(--font-open-sans);
+      }
+
+      .records {
+        display: none;
+        padding: 25px;
+        text-align: center;
+      }
+
+      .records a {
+        color: red;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <nav class="dropdownmenu">
+        <ul>
+          <li><a href="./search-users.html">Search Users</a></li>
+          <li>
+            <a href="./home.html">New User</a>
+          </li>
+          <div style="clear: right"></div>
+        </ul>
+      </nav>
+    </div>
+    <div class="registration-form">
+      <form class="form" method="POST">
+        <div class="form-element">
+          <label for="fname">First Name</label>
+          <input
+            type="text"
+            class="form-option"
+            placeholder="First Name"
+            name="fname"
+            value=""
+          />
+        </div>
+        <div class="form-element">
+          <label for="lname">Last Name</label>
+          <input
+            type="text"
+            class="form-option"
+            placeholder="Last Name"
+            name="lname"
+            value=""
+          />
+        </div>
+        <div class="form-element">
+          <label for="addr">Address</label>
+          <input
+            type="text"
+            class="form-option"
+            placeholder="Address"
+            name="addr"
+            value=""
+          />
+        </div>
+        <div class="form-element">
+          <label for="city">City</label>
+          <select name="city" class="form-option">
+            <option value="" disabled selected>Select City</option>
+            <option value="Toronto">Toronto</option>
+            <option value="Montréal">Montréal</option>
+            <option value="Vancouver">Vancouver</option>
+            <option value="Calgary">Calgary</option>
+            <option value="Edmonton">Edmonton</option>
+            <option value="Ottawa">Ottawa</option>
+          </select>
+        </div>
+        <div class="form-element">
+          <label for="province">Province</label>
+          <select name="province" class="form-option">
+            <option value="" disabled selected>Select Province</option>
+            <option value="Alberta">Alberta</option>
+            <option value="British Columbia">British Columbia</option>
+            <option value="Manitoba">Manitoba</option>
+            <option value="New Brunswick">New Brunswick</option>
+            <option value="Newfoundland and Labrador">
+              Newfoundland and Labrador
+            </option>
+            <option value="Northwest Territories">Northwest Territories</option>
+            <option value="Nova Scotia">Nova Scotia</option>
+            <option value="Nunavut">Nunavut</option>
+            <option value="Ontario">Ontario</option>
+            <option value="Prince Edward Island">Prince Edward Island</option>
+            <option value="Quebec">Quebec</option>
+            <option value="Saskatchewan">Saskatchewan</option>
+            <option value="Yukon">Yukon</option>
+          </select>
+        </div>
+        <div class="form-element">
+          <label for="pcode">Postal Code</label>
+          <input
+            type="text"
+            class="form-option"
+            placeholder="Postal Code"
+            name="pcode"
+            value=""
+          />
+        </div>
+        <div class="form-element">
+          <label for="pnumber">Phone Number</label>
+          <input
+            type="text"
+            class="form-option"
+            placeholder="Phone Number"
+            name="pnumber"
+            value=""
+          />
+        </div>
+        <div class="form-element">
+          <label for="email">Email Address</label>
+          <input
+            type="email"
+            class="form-option"
+            placeholder="Email Address"
+            name="email"
+            value=""
+          />
+        </div>
+        <div class="form-element">
+          <label for="notes">Notes</label>
+          <textarea
+            class="form-option"
+            rows="6"
+            placeholder="Add Notes"
+            name="notes"
+          ></textarea>
+        </div>
+        <input type="submit" name="save" value="Save" />
+      </form>
+    </div>
+    <div class="records">
+      <a href="./last-user-info.html">Saved records</a>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        let userData = JSON.parse(localStorage.getItem("userData")) || [];
+        if (userData.length > 0) {
+          $(".records").show();
+        }
+
+        $("input:submit").click(function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+          formValidation();
+        });
+
+        function formValidation() {
+          let flag = true;
+          $(".form-option").each((index, element) => {
+            if ($(element).val() == null || $(element).val() === "") {
+              alert("Please fill in all the fields");
+              flag = false;
+              return false;
+            }
+          });
+          if (flag) {
+            if (
+              !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
+                $("input[name='email']").val()
+              )
+            ) {
+              flag = false;
+              alert("Invalid Email!");
+            }
+            if (
+              !/^(\d{5}(-\d{4})?|\d[A-Z]\d ?[A-Z]\d[A-Z])$/.test(
+                $("input[name='pcode']").val()
+              )
+            ) {
+              flag = false;
+              alert("Incorrect Postal Code Format.");
+            }
+            if (
+              !/^\(?\d{3}\)?[-]?\d{3}[\s.-]\d{4}$/.test(
+                $("input[name='pnumber']").val()
+              )
+            ) {
+              flag = false;
+              alert("Incorrect Phone Number Format.");
+            }
+            if (flag) {
+              var userData = JSON.parse(localStorage.getItem("userData")) || [];
+              var obj = {
+                fname: $("input[name='fname']").val(),
+                lname: $("input[name='lname']").val(),
+                addr: $("input[name='addr']").val(),
+                province: $("select[name='province']").val(),
+                city: $("select[name='city']").val(),
+                pcode: $("input[name='pcode']").val(),
+                pnumber: $("input[name='pnumber']").val(),
+                email: $("input[name='email']").val(),
+                notes: $("textarea[name='notes']").val(),
+              };
+              userData.push(obj);
+              localStorage.setItem("userData", JSON.stringify(userData));
+              $(".records").show();
+              alert("Registration Successful");
+            }
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
